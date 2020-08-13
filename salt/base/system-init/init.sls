@@ -6,3 +6,4 @@ include:
   - .sls/ulimit
   - .sls/swap
   - .sls/selinux
+  - .sls/sshd
