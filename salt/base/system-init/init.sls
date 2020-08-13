@@ -5,3 +5,4 @@ include:
   - .sls/timezone
   - .sls/ulimit
   - .sls/swap
+  - .sls/selinux
