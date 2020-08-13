@@ -2,14 +2,7 @@
 system_init_packages:
   pkg.installed:
     - pkgs:
-        - gcc
-        - gcc-c++
-        - net-tools
-        - htop
-        - iftop
-        - ack
-        - tmux
-        - nmap-ncat
-        - wget
-        - python3
+      {% for package in pillar['install_packages'] %}
+      - "{{ package }}"
+      {% endfor %}
 {% endif %}

@@ -1,0 +1,11 @@
+install_packages:
+  - gcc
+  - gcc-c++
+  - net-tools
+  - htop
+  - iftop
+  - ack
+  - tmux
+  - nmap-ncat
+  - wget
+  - python3
