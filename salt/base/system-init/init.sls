@@ -7,3 +7,4 @@ include:
   - .sls/swap
   - .sls/selinux
   - .sls/sshd
+  - .sls/sysctl
