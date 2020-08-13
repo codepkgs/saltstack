@@ -4,6 +4,7 @@ include:
   - .sls/services
   - .sls/timezone
   - .sls/ulimit
+  - .sls/repo
   - .sls/swap
   - .sls/selinux
   - .sls/sshd
