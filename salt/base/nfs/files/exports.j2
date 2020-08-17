@@ -1,0 +1,7 @@
+{% if pillar['nfs_role'] is defined and pillar['nfs_role'] == 'server' and pillar['nfs_exports'] is defined %}
+    {% for item in pillar['nfs_exports'] %}
+        {%- for client in item['clients'] -%}
+            {{ item.name }}  {{ client.hosts }}({{ ','.join(client.options) }})
+        {% endfor %}
+    {% endfor %}
+{% endif %}
