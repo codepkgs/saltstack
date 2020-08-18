@@ -3,7 +3,7 @@ nfs_role: server
 nfs_exports:
   - name: /data/nfs
     clients:
-    - hosts: '*'
+    - hosts: '10.0.100.0/24'
       options:
         - 'rw'
         - 'async'
