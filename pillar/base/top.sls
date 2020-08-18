@@ -4,3 +4,4 @@ base:
     - ntpd
     - resolv
     - nfs
+    - schedule

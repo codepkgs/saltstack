@@ -5,3 +5,9 @@ system_init_pip:
     - user: root
     - group: root
     - mode: 0644
+
+system_init_pip_croniter:
+  pip.installed:
+    - name: croniter
+    - require:
+      - pkg: system_init_packages
