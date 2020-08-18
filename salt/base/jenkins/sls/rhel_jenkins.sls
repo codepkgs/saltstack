@@ -60,7 +60,7 @@ jenkins_plugin_update_center:
   file.replace:
     - name: /var/lib/jenkins/hudson.model.UpdateCenter.xml
     - pattern: "^(\\s*)<url>.*</url>$"
-    - repl: "\\1<url>https://mirrors.aliyun.com/jenkins/updates/update-center.json</url>"
+    - repl: "\\1<url>https://mirror.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</url>"
     - require:
       - pkg: jenkins_install
 
