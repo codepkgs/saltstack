@@ -5,3 +5,4 @@ base:
     - resolv
     - nfs
     - schedule
+    - jenkins
