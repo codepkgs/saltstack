@@ -2,6 +2,7 @@ install_packages:
   - gcc
   - gcc-c++
   - net-tools
+  - rsync
   - htop
   - iftop
   - ack
