@@ -6,3 +6,4 @@ base:
     - nfs
     - schedule
     - jenkins
+    - nginx
