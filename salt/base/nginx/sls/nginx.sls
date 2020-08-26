@@ -37,6 +37,20 @@
     {% set nginx_ssl_certs_dir = "/etc/nginx/certs" %}
 {% endif %}
 
+{# 配置要启用的证书 #}
+{% if pillar['nginx_ssl_enable_certs'] is defined and pillar['nginx_ssl_enable_certs'][0] | lower == 'all' %}
+    {% set nginx_ssl_enable_certs = ['all'] %}
+{% else %}
+    {% set nginx_ssl_enable_certs = pillar['nginx_ssl_enable_certs'] %}
+{% endif %}
+
+{# 配置要启用的额外的配置 #}
+{% if pillar['nginx_extra_enable_configs'] is defined and pillar['nginx_extra_enable_configs'][0] | lower == 'all' %}
+    {% set nginx_extra_enable_configs = ['all'] %}
+{% else %}
+    {% set nginx_extra_enable_configs = pillar['nginx_extra_enable_configs'] %}
+{% endif %}
+
 nginx_packages:
   pkg.installed:
     - pkgs:
@@ -80,6 +94,9 @@ nginx_certs_config:
     - dir_mode: 755
     - file_mode: 644
     - clean: True
+    {% if nginx_ssl_enable_certs[0] | lower != 'all' %}
+    - include_pat: {{ nginx_ssl_enable_certs }}
+    {% endif %}
 {% endif %}
 
 nginx_config:
@@ -98,6 +115,7 @@ nginx_config:
       - file: nginx_certs_config
       {% endif %}
 
+
 nginx_extra_config:
   file.recurse:
     - name: /etc/nginx/conf.d
@@ -107,13 +125,13 @@ nginx_extra_config:
     - dir_mode: 755
     - file_mode: 644
     - clean: True
+    {% if nginx_extra_enable_configs[0] | lower != 'all' %}
+    - include_pat: {{ nginx_extra_enable_configs }}
+    {% endif %}
     - require:
       - pkg: nginx_packages
       - user: nginx_runtime_user
       - file: nginx_log_dir
-      {% if nginx_ssl_enable %}
-      - file: nginx_certs_config
-      {% endif %}
 
 nginx_service:
   service.running:

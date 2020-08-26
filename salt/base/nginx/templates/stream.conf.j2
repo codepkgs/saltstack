@@ -1,0 +1,110 @@
+stream {
+    upstream kube-apiserver {
+        hash $remote_addr consistent;
+        server 10.0.100.3:6443 max_fails=2 fail_timeout=3;
+        server 10.0.100.4:6443 max_fails=2 fail_timeout=3;
+        server 10.0.100.5:6443 max_fails=2 fail_timeout=3;
+    }
+
+    server {
+        listen 0.0.0.0:6443;
+        proxy_pass kube-apiserver;
+        proxy_connect_timeout 2s;
+    }
+
+    upstream nginx_ingress_http {
+        server 10.0.100.6:80 max_fails=2 fail_timeout=3;
+        server 10.0.100.7:80 max_fails=2 fail_timeout=3;
+        server 10.0.100.8:80 max_fails=2 fail_timeout=3;
+    }
+
+    server {
+        listen 10.0.100.20:80;
+        proxy_pass nginx_ingress_http;
+        proxy_connect_timeout 2s;
+    }
+
+    upstream nginx_ingress_https {
+        server 10.0.100.6:443 max_fails=2 fail_timeout=3;
+        server 10.0.100.7:443 max_fails=2 fail_timeout=3;
+        server 10.0.100.8:443 max_fails=2 fail_timeout=3;
+    }
+
+    server {
+        listen 10.0.100.20:443;
+        proxy_pass nginx_ingress_https;
+        proxy_connect_timeout 2s;
+    }
+
+    # traefik
+    upstream traefik_ingress_http {
+        server 10.0.100.6:30080 max_fails=2 fail_timeout=3;
+        server 10.0.100.7:30080 max_fails=2 fail_timeout=3;
+        server 10.0.100.8:30080 max_fails=2 fail_timeout=3;
+    }
+    server {
+        listen 10.0.100.21:80;
+        proxy_pass traefik_ingress_http;
+        proxy_connect_timeout 2s;
+    }
+
+    upstream traefik_ingress_https {
+        server 10.0.100.6:30443 max_fails=2 fail_timeout=3;
+        server 10.0.100.7:30443 max_fails=2 fail_timeout=3;
+        server 10.0.100.8:30443 max_fails=2 fail_timeout=3;
+    }
+
+    server {
+        listen 10.0.100.21:443;
+        proxy_pass traefik_ingress_https;
+        proxy_connect_timeout 2s;
+    }
+
+    # traefik ingress route tcp
+    upstream traefik_ingress_tcp_redis {
+        server 10.0.100.6:36379 max_fails=2 fail_timeout=3;
+        server 10.0.100.7:36379 max_fails=2 fail_timeout=3;
+        server 10.0.100.8:36379 max_fails=2 fail_timeout=3;
+    }
+
+    server {
+        listen 10.0.100.21:36379;
+        proxy_pass traefik_ingress_tcp_redis;
+        proxy_connect_timeout 2s;
+    }
+
+    # elasticsearch
+    upstream elasticsearch {
+        server 10.0.100.11:9200 max_fails=2 fail_timeout=3;
+        server 10.0.100.12:9200 max_fails=2 fail_timeout=3;
+        server 10.0.100.13:9200 max_fails=2 fail_timeout=3;
+    }
+
+    server {
+        listen 0.0.0.0:9200;
+        proxy_pass elasticsearch;
+        proxy_connect_timeout 2s;
+    }
+
+    # predixy
+    upstream predixy-7617 {
+        server 10.0.100.9:7617 max_fails=2 fail_timeout=3;
+        server 10.0.100.10:7617 max_fails=2 fail_timeout=3;
+    }
+    server {
+        listen 0.0.0.0:6379;
+        proxy_pass predixy-7617;
+        proxy_connect_timeout 2s;
+    }
+
+    # predixy  7618
+    upstream predixy-7618 {
+        server 10.0.100.9:7618 max_fails=2 fail_timeout=3;
+        server 10.0.100.10:7618 max_fails=2 fail_timeout=3;
+    }
+    server {
+        listen 0.0.0.0:6380;
+        proxy_pass predixy-7618;
+        proxy_connect_timeout 2s;
+    }
+}

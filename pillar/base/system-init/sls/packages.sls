@@ -5,6 +5,8 @@ install_packages:
   - rsync
   - htop
   - iftop
+  - lsof
+  - tree
   - ack
   - tmux
   - nmap-ncat
