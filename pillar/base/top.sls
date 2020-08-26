@@ -12,3 +12,6 @@ base:
 
   "vm11.fdisk.cc":
     - nginx/sls/nginx_proxy
+
+  "vm12.fdisk.cc":
+    - gitlab

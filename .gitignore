@@ -1,1 +1,2 @@
 .vscode
+pillar/base/gitlab/sls/gitlab2.sls
