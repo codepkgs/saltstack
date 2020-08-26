@@ -11,6 +11,34 @@
     {% set nginx_log_dir = "/data/logs/nginx" %}
 {% endif -%}
 
+{# nginx role #}
+{% if pillar['nginx_http_enable'] is defined and pillar['nginx_http_enable'] %}
+    {% set nginx_http_enable = True %}
+{% else %}
+    {% set nginx_http_enable = False %}
+{% endif -%}
+
+{# nginx ssl #}
+{% if pillar['nginx_ssl_enable'] is defined and pillar['nginx_ssl_enable'] %}
+    {% set nginx_ssl_enable = True %}
+{% else %}
+    {% set nginx_ssl_enable = False %}
+{% endif -%}
+
+{# 是否要启用 nginx extra config #}
+{% if pillar['nginx_extra_config_enable'] is defined and pillar['nginx_extra_config_enable'] %}
+    {% set nginx_extra_config_enable = True %}
+{% else %}
+    {% set nginx_extra_config_enable = False %}
+{% endif -%}
+
+{# enable stream config #}
+{% if pillar['nginx_stream_enable'] is defined and pillar['nginx_stream_enable'] %}
+    {% set nginx_stream_enable = True %}
+{% else %}
+    {% set nginx_stream_enable = False %}
+{% endif -%}
+
 user                    {{ nginx_runtime_user }} {{ nginx_runtime_user }};
 worker_processes        auto;
 worker_cpu_affinity     auto;
@@ -23,6 +51,9 @@ error_log   {{ nginx_log_dir }}/error.log  notice;
 {% endif %}
 pid         /run/nginx.pid;
 
+# Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
 events {
     accept_mutex        off;
     multi_accept        on;
@@ -30,6 +61,12 @@ events {
     worker_connections  65535;
 }
 
+{% if nginx_stream_enable %}
+# include extra stream config
+include /etc/nginx/stream.d/*.conf;
+{% endif %}
+
+{% if nginx_http_enable %}
 http {
     include       mime.types;
     default_type  application/octet-stream;
@@ -160,6 +197,10 @@ http {
         }
     }
     {% endif %}
+
+    {% if nginx_extra_config_enable %}
     # include extra config
     include /etc/nginx/conf.d/*.conf;
+    {% endif %}
 }
+{% endif %}

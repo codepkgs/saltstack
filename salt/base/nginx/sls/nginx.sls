@@ -44,11 +44,32 @@
     {% set nginx_ssl_enable_certs = pillar['nginx_ssl_enable_certs'] %}
 {% endif %}
 
+{# 是否要启用额外的配置 #}
+{% if pillar['nginx_extra_config_enable'] is defined and pillar['nginx_extra_config_enable'] %}
+    {% set nginx_extra_config_enable = True %}
+{% else %}
+    {% set nginx_extra_config_enable = False %}
+{% endif %}
+
 {# 配置要启用的额外的配置 #}
 {% if pillar['nginx_extra_enable_configs'] is defined and pillar['nginx_extra_enable_configs'][0] | lower == 'all' %}
     {% set nginx_extra_enable_configs = ['all'] %}
 {% else %}
     {% set nginx_extra_enable_configs = pillar['nginx_extra_enable_configs'] %}
+{% endif %}
+
+{# 是否启用nginx stream #}
+{% if pillar['nginx_stream_enable'] is defined and pillar['nginx_stream_enable'] %}
+    {% set nginx_stream_enable = True %}
+{% else %}
+    {% set nginx_stream_enable = False %}
+{% endif %}
+
+{# 配置要启用的额外的stream配置 #}
+{% if pillar['nginx_stream_enable_configs'] is defined and pillar['nginx_stream_enable_configs'][0] | lower == 'all' %}
+    {% set nginx_stream_enable_configs = ['all'] %}
+{% else %}
+    {% set nginx_stream_enable_configs = pillar['nginx_stream_enable_configs'] %}
 {% endif %}
 
 nginx_packages:
@@ -115,7 +136,32 @@ nginx_config:
       - file: nginx_certs_config
       {% endif %}
 
+{% if nginx_stream_enable %}
+nginx_stream_dir:
+  file.directory:
+    - name: /etc/nginx/stream.d
+    - user: root
+    - group: root
+    - makedirs: True
+    - dir_mode: 755
 
+nginx_stream_config:
+  file.recurse:
+    - name: /etc/nginx/stream.d
+    - source: salt://nginx/files/stream.d
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 644
+    - clean: True
+    {% if nginx_stream_enable_configs[0] | lower != 'all' %}
+    - include_pat: {{ nginx_stream_enable_configs }}
+    {% endif %}
+    - require:
+      - file: nginx_stream_dir
+{% endif %}
+
+{% if nginx_extra_config_enable %}
 nginx_extra_config:
   file.recurse:
     - name: /etc/nginx/conf.d
@@ -132,6 +178,7 @@ nginx_extra_config:
       - pkg: nginx_packages
       - user: nginx_runtime_user
       - file: nginx_log_dir
+{% endif %}
 
 nginx_service:
   service.running:
@@ -139,7 +186,12 @@ nginx_service:
     - enable: True
     - watch:
       - file: nginx_config
+      {% if nginx_extra_config_enable %}
       - file: nginx_extra_config
+      {% endif %}
+      {% if nginx_stream_enable %}
+      - file: nginx_stream_config
+      {% endif %}
       {% if nginx_ssl_enable %}
       - file: nginx_certs_config
       {% endif %}

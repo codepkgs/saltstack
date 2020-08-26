@@ -6,4 +6,6 @@ base:
     - nfs
     - schedule
     - jenkins
-    - nginx
+
+  "L@vm09.fdisk.cc,vm10.fdisk.cc":
+    - nginx/sls/nginx_stream
