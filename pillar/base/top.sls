@@ -9,3 +9,6 @@ base:
 
   "L@vm09.fdisk.cc,vm10.fdisk.cc":
     - nginx/sls/nginx_stream
+
+  "vm11.fdisk.cc":
+    - nginx/sls/nginx_proxy
