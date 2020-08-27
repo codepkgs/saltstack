@@ -8,4 +8,4 @@ domain {{ pillar['resolv_domain'] }}
 {% for ns in pillar['resolv_nameservers'][:3] %}
 nameserver {{ ns }}
 {% endfor %}
-options {{ pillar['resolv_options'] }}
+options {{ salt['pillar.get']('resolv_options', 'rotate timeout:2 attempts:3') }}
