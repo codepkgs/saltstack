@@ -48,16 +48,16 @@ memcached_archive:
     - keep_source: True
     - user: root
     - group: root
-    - unless: {{ memcached_bin }} | is_binary_file
+    - unless: test -x {{ memcached_bin }}
 
 memcached_make_install:
-  cmd.wait:
+  cmd.run:
     - name: |
         cd /tmp/memcached-* && \
         ./configure --prefix={{ memcached_install_prefix }} --enable-sasl --enable-sasl-pwdb && \
         make && make install
     - shell: /bin/bash
-    - unless: {{ memcached_bin }} | is_binary_file
+    - unless: test -x {{ memcached_bin }}
 
 {% if grains['os_family'].lower() == 'redhat' and grains['osmajorrelease'] == 7 %}
 {% for instance in memcached_instances %}
