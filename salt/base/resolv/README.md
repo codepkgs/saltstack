@@ -1,6 +1,6 @@
 # 变量
 
-** 只支持 RHEL7 **
+**只支持 RHEL7**
 
 - resolv_search  
    必选。指定搜索域，列表形式。格式为：`resolv_search = ["fdisk.cc", "frame.com"}]`
