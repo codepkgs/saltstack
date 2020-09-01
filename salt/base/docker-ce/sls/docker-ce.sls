@@ -20,3 +20,10 @@ docker_pkgs:
       - docker-ce-cli
       - containerd.io
 
+
+docker_daemon_dir:
+  file.directory:
+    - name: /etc/docker
+    - user: root
+    - group: root
+    - dir_mode: 755
