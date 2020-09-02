@@ -42,6 +42,12 @@ docker_iptables:
     - mode: ensure
     - after: '^ExecStart='
 
+docker_iptables_policy:
+  iptables.set_policy:
+    - table: filter
+    - chain: FORWARD
+    - policy: ACCEPT
+
 docker_daemon:
   service.running:
     - name: docker
