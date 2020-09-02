@@ -4,6 +4,7 @@ base:
     - ntpd
     - resolv
     - nfs
+    - docker-ce
 
   "L@vm09.fdisk.cc,vm10.fdisk.cc":
     - nginx
