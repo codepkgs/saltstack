@@ -20,10 +20,35 @@ docker_pkgs:
       - docker-ce-cli
       - containerd.io
 
-
 docker_daemon_dir:
   file.directory:
     - name: /etc/docker
     - user: root
     - group: root
     - dir_mode: 755
+
+docker_daemon_config:
+  file.managed:
+    - name: /etc/docker/daemon.json
+    - source: salt://docker-ce/files/daemon.json
+    - user: root
+    - group: root
+    - mode: 644
+
+docker_iptables:
+  file.line:
+    - name: /usr/lib/systemd/system/docker.service
+    - content: 'ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT'
+    - mode: ensure
+    - after: '^ExecStart='
+
+docker_daemon:
+  service.running:
+    - name: docker
+    - enable: True
+    - require:
+      - pkg: docker_pkgs
+      - file: docker_daemon_config
+    - watch:
+      - file: docker_daemon_config
+      - file: docker_iptables
