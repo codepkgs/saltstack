@@ -1,0 +1,2 @@
+include:
+  - .sls/openresty-install
