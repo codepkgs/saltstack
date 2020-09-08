@@ -1,3 +1,0 @@
-export PATH="/usr/local/pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
