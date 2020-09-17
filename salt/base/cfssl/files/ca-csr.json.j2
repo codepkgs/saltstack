@@ -4,7 +4,6 @@
 {% set cfssl_cert_o = salt['pillar.get']('cfssl_cert_o', 'fdisk.cc') %}
 {% set cfssl_cert_ou = salt['pillar.get']('cfssl_cert_ou', 'DevOps') %}
 {% set cfssl_cert_expiry = salt['pillar.get']('cfssl_cert_expiry', '87600h') %}
-
 {
     "CN": "Root CA",
     "key": {

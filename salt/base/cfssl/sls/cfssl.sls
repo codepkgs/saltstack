@@ -2,6 +2,7 @@
 {% set cfssljson_url = 'https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64' %}
 {% set cfssl_url_map = {'cfssl': cfssl_url, 'cfssljson': cfssljson_url } %}
 {% set cfssl_default_configs = ['ca-csr.json', 'config.json'] %}
+{% set cfssl_dirs = ['configs', 'certs'] %}
 
 {% for name, url in cfssl_url_map.items() %}
 cfssl_{{ name }}:
@@ -16,13 +17,15 @@ cfssl_{{ name }}:
     - unless: test -x /usr/local/bin/{{ name }}
 {% endfor %}
 
-cfssl_dir:
+{% for dir in cfssl_dirs %}
+cfssl_dir_{{ dir }}:
   file.directory:
-    - name: /etc/cfssl/configs
+    - name: /etc/cfssl/{{ dir }}
     - user: root
     - group: root
     - dir_mode: 755
     - makedirs: True
+{% endfor %}
 
 {% for config in cfssl_default_configs %}
 cfssl_default_config_{{ config }}:
