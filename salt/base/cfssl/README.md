@@ -16,3 +16,6 @@
    指定 CA 证书的 `organization unit`，默认是 `DevOps`
 - `cfssl_cert_expiry`  
   指定 CA 证书的 `有效期`，默认是 `87600h`，即 10 年
+
+- `cfssl_cert_ca`  
+   是否产生 CA 的证书，默认是 True。
