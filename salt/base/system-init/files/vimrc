@@ -24,7 +24,6 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 " 功能设置
 set backspace=2       " 防止 backspace 失灵
 syntax enable         " 启用语法高亮
-set mouse=c           " 关闭鼠标功能
 set nu                " 启用行号显示
 set wrap              " 启用自动折行
 set linebreak         " 启用整词折行
