@@ -11,13 +11,15 @@
         "algo": "rsa",
         "size": 2048
     },
-    "names": [{
-        "C": "{{ cfssl_cert_c }}",
-        "L": "{{ cfssl_cert_l }}",
-        "ST": "{{ cfssl_cert_st }}",
-        "O": "{{ cfssl_cert_o }}",
-        "OU": "{{ cfssl_cert_ou }}"
-    }],
+    "names": [
+        {
+            "C": "{{ cfssl_cert_c }}",
+            "L": "{{ cfssl_cert_l }}",
+            "ST": "{{ cfssl_cert_st }}",
+            "O": "{{ cfssl_cert_o }}",
+            "OU": "{{ cfssl_cert_ou }}"
+        }
+    ],
     "ca": {
         "expiry": "{{ cfssl_cert_expiry }}"
     }
