@@ -1,0 +1,5 @@
+{% set mariadb_version = salt['pillar.get']('mariadb_version', '10.5') %}
+[mariadb]
+name = MariaDB
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/mariadb/yum/{{ mariadb_version }}/centos{{ grains['osmajorrelease'] }}-amd64
+gpgcheck=0
