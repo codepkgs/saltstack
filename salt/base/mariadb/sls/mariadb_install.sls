@@ -1,3 +1,4 @@
+{% set mariadb_watch_configs = salt['pillar.get']('mariadb_watch_configs', True) %}
 mariadb_repo:
   file.managed:
     - name: /etc/yum.repos.d/mariadb.repo
@@ -19,3 +20,8 @@ mariadb_service:
     - enable: True
     - require:
       - pkg: mariadb_packages
+    {% if mariadb_watch_configs %}
+    - watch:
+      - ini: mariadb_client_config
+      - ini: mariadb_server_config
+    {% endif %}
