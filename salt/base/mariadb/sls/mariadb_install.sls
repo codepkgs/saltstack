@@ -1,4 +1,6 @@
+{# 配置文件发生变化时是否自动重启 mariadb 服务 #}
 {% set mariadb_watch_configs = salt['pillar.get']('mariadb_watch_configs', True) %}
+
 mariadb_repo:
   file.managed:
     - name: /etc/yum.repos.d/mariadb.repo
