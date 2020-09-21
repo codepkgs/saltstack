@@ -8,8 +8,7 @@
 {# 服务器端配置，格式为 section: {option: value} #}
 {% set mariadb_server_configs = salt['pillar.get']('mariadb_server_configs', {
     'mariadb': {
-        'character-set-server': 'utf8mb4',
-        'collation-server':'utf8mb4_unicode_ci'
+        'character-set-server': 'utf8mb4'
     }
 }) %}
 
