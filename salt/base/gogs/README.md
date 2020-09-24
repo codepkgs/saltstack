@@ -14,9 +14,18 @@ innodb_large_prefix = ON
 
 ## 创建数据库
 
-```sql
-CREATE DATABASE IF NOT EXISTS gogs CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-```
+- 创建数据库
+
+  ```sql
+  CREATE DATABASE IF NOT EXISTS gogs CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+  ```
+
+- 授权
+
+  ```sql
+  GRANT ALL PRIVILEGES ON gogs.* TO 'gogs'@'127.0.0.1' IDENTIFIED BY 'gogs';
+  FLUSH PRIVILEGES;
+  ```
 
 ## Nginx 配置
 
