@@ -8,7 +8,10 @@
 {# 服务器端配置，格式为 section: {option: value} #}
 {% set mariadb_server_configs = salt['pillar.get']('mariadb_server_configs', {
     'mariadb': {
-        'character-set-server': 'utf8mb4'
+        'character-set-server': 'utf8mb4',
+        'innodb_file_per_table': 'ON',
+        'innodb_file_format' : 'Barracuda',
+        'innodb_large_prefix' : 'ON'
     }
 }) %}
 
