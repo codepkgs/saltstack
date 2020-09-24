@@ -1,0 +1,5 @@
+[gogs]
+name=Repository for gogs/gogs (main) packages.
+baseurl=https://dl.packager.io/srv/rpm/gogs/gogs/main/el/7/$basearch
+enabled=1
+gpgcheck=0
