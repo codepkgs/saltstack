@@ -1,9 +1,21 @@
 # 说明
 
+## 配置 mariadb 服务器端
+
+```ini
+# 文件 /etc/my.cnf.d/server.cnf
+
+[mariadb]
+character-set-server = utf8mb4
+innodb_file_per_table = ON
+innodb_file_format = Barracuda
+innodb_large_prefix = ON
+```
+
 ## 创建数据库
 
 ```sql
-CREATE DATABASE IF NOT EXISTS gogs DEFAULT CHARACTER SET utf8mb4;
+CREATE DATABASE IF NOT EXISTS gogs CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ```
 
 ## Nginx 配置
