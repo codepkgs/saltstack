@@ -1,5 +1,14 @@
 # 说明
 
+## 变量
+
+- `gogs_download_url`  
+   指定 `gogs` 下载的 url，默认是 `https://dl.gogs.io/0.12.1/gogs_0.12.1_linux_amd64.tar.gz`
+
+- `gogs_update_config`  
+   当用户自定义的 `custom/config/app.ini` 文件已经存在时，是否允许更新该文件。默认是 `False`。  
+   `gogs` 安装完成后，会更新该文件的配置。
+
 ## 配置 mariadb 服务器端
 
 ```ini
@@ -23,7 +32,7 @@ innodb_large_prefix = ON
 - 授权
 
   ```sql
-  GRANT ALL PRIVILEGES ON gogs.* TO 'gogs'@'127.0.0.1' IDENTIFIED BY 'gogs';
+  GRANT ALL PRIVILEGES ON gogs.* TO 'gogs'@'localhost' IDENTIFIED BY 'gogs';
   FLUSH PRIVILEGES;
   ```
 
@@ -32,7 +41,7 @@ innodb_large_prefix = ON
 ```nginx
 upstream gogs {
     keepalive   32;
-    server      127.0.0.1:6000;
+    server      127.0.0.1:3000;
 }
 server {
     listen      80;
