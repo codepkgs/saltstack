@@ -43,11 +43,12 @@ gogs_pkgs:
 gogs_custom_config:
   file.managed:
     - name: /home/git/gogs/custom/config/app.ini
-    - source: salt://gogs/files/app.ini
+    - source: salt://gogs/files/app.ini.j2
     - user: git
     - group: git
     - mode: 644
     - makedirs: True
+    - template: jinja
     - require:
       - archive: gogs_pkgs
     {% if not gogs_update_config %}

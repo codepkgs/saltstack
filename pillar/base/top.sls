@@ -12,6 +12,7 @@ base:
 
   "vm11.fdisk.cc":
     - nginx/sls/nginx_proxy
+    - gogs
 
   "vm12.fdisk.cc":
     - gitlab

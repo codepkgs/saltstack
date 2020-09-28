@@ -12,3 +12,4 @@ mariadb_packages:
     - pkgs:
       - MariaDB-server
       - MariaDB-client
+      - MariaDB-devel

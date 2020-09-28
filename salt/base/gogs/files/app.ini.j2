@@ -1,3 +1,4 @@
+{% set gogs_user_password = salt['pillar.get']('gogs_user_password', 'gogs') %}
 BRAND_NAME = Gogs
 RUN_USER = git
 RUN_MODE = prod
@@ -18,7 +19,7 @@ TYPE = mysql
 HOST = localhost
 NAME = gogs
 USER = gogs
-PASSWORD = gogs
+PASSWORD = {{ gogs_user_password }}
 
 [security]
 INSTALL_LOCK = false
