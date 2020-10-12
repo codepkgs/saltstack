@@ -1,0 +1,20 @@
+{
+    "CN": "etcd cluster",
+    "hosts": [
+        "127.0.0.1",
+        "10.0.100.13",
+        "10.0.100.14",
+        "10.0.100.15"
+    ],
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [{
+        "C": "CN",
+        "ST": "Beijing",
+        "L": "Beijing",
+        "O": "fdisk.cc",
+        "OU": "DevOps"
+    }]
+}

@@ -15,3 +15,6 @@ base:
     - java
     - jenkins
     - nginx
+
+  "L@vm1[3-5].fdisk.cc":
+    - etcd
