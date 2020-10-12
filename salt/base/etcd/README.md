@@ -55,3 +55,5 @@
 # 脚本
 
 可以直接使用 `scripts/main.sh` 产生 `etcd pillar` 文件 `etcd.sls`。所有变量定义在 `scripts/etcd_var.ini` 中。
+
+使用前需要修改 `scripts/files` 中的 `json` 文件。

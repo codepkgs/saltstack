@@ -16,7 +16,7 @@ def gen_pillar_certs():
     etcd_peer_filename = 'certs/etcd.pem'
     etcd_peer_key_filename = 'certs/etcd-key.pem'
 
-    with open(filename, 'w') as fdst:
+    with open(filename, 'a') as fdst:
         with open(ca_filename, 'r') as f:
             fdst.write('etcd_trusted_ca_content: |{}'.format(os.linesep))
             for line in f:
