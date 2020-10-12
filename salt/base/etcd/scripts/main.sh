@@ -2,7 +2,7 @@
 
 clean() {
     rm -rf certs/* &> /dev/null
-    rm -rf etcd_pillar.sls &> /dev/null
+    rm -rf etcd.sls &> /dev/null
 }
 
 ca() {
