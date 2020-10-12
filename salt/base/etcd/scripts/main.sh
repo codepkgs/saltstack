@@ -51,7 +51,7 @@ pillar_contents() {
 
 help() {
     echo "before use this script, please modify json file in files directory"
-    echo "usage: $0 [--force] ca|etcd|all"
+    echo "usage: $0 [--force] ca|etcd|pc|clean"
     exit 0
 }
 
