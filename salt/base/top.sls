@@ -15,6 +15,3 @@ base:
     - java
     - jenkins
     - nginx
-
-  "vm1[3-5].fdisk.cc":
-    - etcd
