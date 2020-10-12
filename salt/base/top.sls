@@ -16,5 +16,5 @@ base:
     - jenkins
     - nginx
 
-  "L@vm1[3-5].fdisk.cc":
+  "vm1[3-5].fdisk.cc":
     - etcd
