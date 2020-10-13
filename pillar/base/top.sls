@@ -4,7 +4,7 @@ base:
     - ntpd
     - resolv
     - nfs
-    - schedule
+    {# - schedule #}
     - jenkins
 
   "L@vm09.fdisk.cc,vm10.fdisk.cc":
@@ -16,6 +16,3 @@ base:
 
   "vm12.fdisk.cc":
     - gitlab
-
-  "vm1[3-5].fdisk.cc":
-    - etcd
