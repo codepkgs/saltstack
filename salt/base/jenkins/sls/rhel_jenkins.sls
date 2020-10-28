@@ -21,7 +21,7 @@
 {# 设置jenkins_real_version #}
 {% set jenkins_real_version = jenkins_repo_host + jenkins_version %}
 
-{% if jenkin_region | lower == 'cn' %}
+{% if jenkins_region | lower == 'cn' %}
 jenkins_repo:
   file.managed:
     - name: /etc/yum.repos.d/jenkins.repo
@@ -89,7 +89,7 @@ jenkins_service:
     - watch:
       - file: jenkins_config
 
-{% if jenkin_region | lower == 'cn' %}
+{% if jenkins_region | lower == 'cn' %}
 jenkins_plugin_update_center:
   file.replace:
     - name: /var/lib/jenkins/hudson.model.UpdateCenter.xml
