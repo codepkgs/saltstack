@@ -4,10 +4,6 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 
-"set listchars=eol:$,tab:>-,space:c,trail:~,extends:>,precedes:<
-set listchars=tab:›\c,trail:•,extends:>,precedes:<,nbsp:.
-set list
-
 " 两格缩进
 au FileType html,xml,css,javascript,jsp,php,yaml,yml set shiftwidth=2
 au FileType html,xml,css,javascript,jsp,php,yaml,yml set tabstop=2
