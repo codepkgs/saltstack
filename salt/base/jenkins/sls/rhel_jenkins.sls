@@ -1,3 +1,10 @@
+# jenkins region
+{% if pillar['jenkin_region'] is defined and pillar['jenkins_region'] %}
+    {% set jenkins_region = pillar['jenkins_region'] %}
+{% else %}
+    {% set jenkins_region = 'cn' %}
+{% endif %}
+
 {# 设置jenkins软件源的地址和jenkins版本 #}
 {% if pillar['jenkin_repo_host'] is defined and pillar['jenkins_repo_host'] %}
     {% set jenkins_repo_host = pillar['jenkins_repo_host'] %}
@@ -14,12 +21,29 @@
 {# 设置jenkins_real_version #}
 {% set jenkins_real_version = jenkins_repo_host + jenkins_version %}
 
+{% if jenkin_region | lower == 'cn' %}
+jenkins_repo:
+  file.managed:
+    - name: /etc/yum.repos.d/jenkins.repo
+    - source: salt://jenkins/files/jenkins.repo
+    - user: root
+    - group: root
+    - mode: 644
+{% endif %}
+
 {# 安装jenkins， 只针对 RedHat 系列的操作系统 #}
 jenkins_install:
   pkg.installed:
+    {% if jenkins_region | lower == 'cn' %}
     - sources:
       - jenkins: {{ jenkins_real_version }}
     - unless: ls -l /usr/lib/jenkins/jenkins.war
+    {% else %}
+    - pkgs:
+      - jenkins
+    - require:
+      - file: jenkins_repo
+    {% endif %}
 
 {# 设置jenkins用户的shell为/bin/bash #}
 jenkins_user:
@@ -56,14 +80,6 @@ jenkins_config:
     - require:
       - pkg: jenkins_install
 
-jenkins_plugin_update_center:
-  file.replace:
-    - name: /var/lib/jenkins/hudson.model.UpdateCenter.xml
-    - pattern: "^(\\s*)<url>.*</url>$"
-    - repl: "\\1<url>https://mirror.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</url>"
-    - require:
-      - pkg: jenkins_install
-
 jenkins_service:
   service.running:
     - name: jenkins
@@ -72,4 +88,13 @@ jenkins_service:
       - pkg: jenkins_install
     - watch:
       - file: jenkins_config
-      - file: jenkins_plugin_update_center
+
+{% if jenkin_region | lower == 'cn' %}
+jenkins_plugin_update_center:
+  file.replace:
+    - name: /var/lib/jenkins/hudson.model.UpdateCenter.xml
+    - pattern: "^(\\s*)<url>.*</url>$"
+    - repl: "\\1<url>https://mirror.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</url>"
+    - require:
+      - pkg: jenkins_install
+{% endif %}
