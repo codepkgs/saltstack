@@ -1,5 +1,5 @@
 # jenkins region
-{% if pillar['jenkin_region'] is defined and pillar['jenkins_region'] %}
+{% if pillar['jenkins_region'] is defined and pillar['jenkins_region'] %}
     {% set jenkins_region = pillar['jenkins_region'] %}
 {% else %}
     {% set jenkins_region = 'cn' %}
