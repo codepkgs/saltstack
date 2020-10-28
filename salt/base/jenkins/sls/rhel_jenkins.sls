@@ -21,7 +21,7 @@
 {# 设置jenkins_real_version #}
 {% set jenkins_real_version = jenkins_repo_host + jenkins_version %}
 
-{% if jenkins_region | lower == 'cn' %}
+{% if jenkins_region | lower != 'cn' %}
 jenkins_repo:
   file.managed:
     - name: /etc/yum.repos.d/jenkins.repo
