@@ -92,7 +92,7 @@ nginx_parent_log_dir:
     - user: root
     - group: root
     - dir_mode: 755
-    - mkdirs: True
+    - makedirs: True
 {% endif %}
 
 nginx_log_dir:
