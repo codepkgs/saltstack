@@ -1,0 +1,51 @@
+port 1194
+proto udp
+dev tun
+
+topology subnet
+
+ca      /etc/openvpn/server/ca.crt
+cert	/etc/openvpn/server/openvpn.crt
+key     /etc/openvpn/server/openvpn.key
+dh      /etc/openvpn/server/dh.pem
+
+{%- if pillar['openvpn_network'] is defined %}
+server {{ openvpn_network }}
+{%- else %}
+server 10.8.0.0 255.255.255.0
+{%- endif %}
+ifconfig-pool-persist ipp.txt
+
+keepalive 10 120
+
+user openvpn
+group openvpn
+
+persist-key
+persist-tun
+
+status openvpn-status.log
+log-append /var/log/openvpn.log
+verb 3
+
+explicit-exit-notify 1
+
+client-config-dir /etc/openvpn/ccd
+
+plugin /usr/lib64/openvpn-auth-pam.so openvpn
+client-cert-not-required
+username-as-common-name
+
+{%- if pillar['openvpn_push_dns'] is defined %}
+{% for dns in openvpn_push_dns %}
+push "dhcp-option DNS {{ dns }}"
+{% endfor %}
+{%- endif %}
+
+; push route
+{%- if pillar['openvpn_push_routers'] is defined %}
+{% for route in openvpn_push_routers %}
+; {{ router.comment }}
+push "route {{ router.network }}"
+{% endfor %}
+{%- endif %}
