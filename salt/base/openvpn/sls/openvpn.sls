@@ -32,12 +32,12 @@ openvpn_dirs_{{ dir }}:
 
 {% for file in openvpn_files %}
 openvpn_files_{{ file }}:
-  file.directory:
+  file.managed:
     - name: /etc/openvpn/server/{{ file }}
+    - source: salt://openvpn/files/{{ file }}
     - user: root
-    - group: openvpn
-    - dir_mode: 750
-    - makedirs: True
+    - group: root
+    - mode: 600
     - require:
       - pkg: openvpn_pkgs
 {% endfor %}
@@ -54,6 +54,10 @@ openvpn_config:
       - file: openvpn_files_*
     - watch:
       - file: openvpn_files_*
+
+openvpn_service_other_config_absent:
+  file.absent:
+    - name: /usr/lib/systemd/system/openvpn-server@.service
 
 openvpn_service_config:
   file.managed:

@@ -7,7 +7,7 @@
 `openvpn_db_user`：定义 openvpn 连接数据库时使用的用户，默认是 `openvpn`  
 `openvpn_db_pass`：定义 openvpn 连接数据库时使用的密码，默认是 `openvpn`  
 `openvpn_db_name`：定义 openvpn 使用的数据库名，默认是 `openvpn`  
-`openvpn_table_name`：定义 openvpn 使用的表名，默认是 `openvpn`
+`openvpn_table_name`：定义 openvpn 使用的表名，默认是 `vpnuser`
 
 # 定义 `pillar` 数据
 

@@ -9,11 +9,11 @@ cert	/etc/openvpn/server/openvpn.crt
 key     /etc/openvpn/server/openvpn.key
 dh      /etc/openvpn/server/dh.pem
 
-{%- if pillar['openvpn_network'] is defined %}
-server {{ openvpn_network }}
-{%- else %}
+{% if pillar['openvpn_network'] is defined %}
+server {{ pillar['openvpn_network'] }}
+{% else %}
 server 10.8.0.0 255.255.255.0
-{%- endif %}
+{% endif %}
 ifconfig-pool-persist ipp.txt
 
 keepalive 10 120
@@ -36,16 +36,16 @@ plugin /usr/lib64/openvpn-auth-pam.so openvpn
 client-cert-not-required
 username-as-common-name
 
-{%- if pillar['openvpn_push_dns'] is defined %}
-{% for dns in openvpn_push_dns %}
+{% if pillar['openvpn_push_dns'] is defined %}
+{% for dns in pillar['openvpn_push_dns'] %}
 push "dhcp-option DNS {{ dns }}"
 {% endfor %}
-{%- endif %}
+{% endif %}
 
 ; push route
-{%- if pillar['openvpn_push_routers'] is defined %}
-{% for route in openvpn_push_routers %}
+{% if pillar['openvpn_push_routers'] is defined %}
+{% for router in pillar['openvpn_push_routers'] %}
 ; {{ router.comment }}
 push "route {{ router.network }}"
 {% endfor %}
-{%- endif %}
+{% endif %}

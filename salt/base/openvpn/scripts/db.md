@@ -15,6 +15,6 @@
   mysql> create table vpnuser (
       username char(32) not null,
       password varchar(128) not null,
-      active int(10) not null default 1,
+      active int(1) not null default 1,
       primary key (username) );
   ```

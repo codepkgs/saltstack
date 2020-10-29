@@ -1,6 +1,6 @@
 openvpn_auth_pam_archive:
   archive.extracted:
-    - name: /tmp/openvpn-2.0.9
+    - name: /tmp
     - source: http://swupdate.openvpn.org/community/releases/openvpn-2.0.9.tar.gz
     - user: root
     - group: root
@@ -8,31 +8,16 @@ openvpn_auth_pam_archive:
     - unless: ls -l /usr/lib64/openvpn-auth-pam.so
 
 openvpn_auth_pam_make:
-  cmd.wait:
+  cmd.run:
     - name: make && cp openvpn-auth-pam.so /usr/lib64/openvpn-auth-pam.so
     - cwd: /tmp/openvpn-2.0.9/plugin/auth-pam
     - shell: /bin/bash
     - unless: ls -l /usr/lib64/openvpn-auth-pam.so
 
-openvpn_auth_pam_db_archive:
-  archive.extracted:
-    - name: /tmp/pam_mysql-0.7RC1
-    - source: salt://openvpn/files/pam_mysql-0.7RC1.tar.gz
-    - user: root
-    - group: root
-    - skip_verify: True
-
-openvpn_auth_pam_db_make:
-  cmd.wait:
-    - name: |
-        ./configure --with-pam=/usr --with-mysql=/usr --with-pam-mods-dir=/usr/lib64/security &&
-        make &&
-        make install
-    - cwd: /tmp/pam_mysql-0.7RC1
-    - shell: /bin/bash
-    - unless: ls -l /usr/lib64/security/pam_mysql.so
-    - require:
-      - archive: openvpn_auth_pam_db_archive
+openvpn_auth_pam:
+   pkg.installed:
+    - sources:
+      - pam_mysql: salt://openvpn/files/pam_mysql-0.7-0.20.rc1.el7.x86_64.rpm
 
 openvpn_auth_pam_file:
   file.managed:

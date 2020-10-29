@@ -1,5 +1,5 @@
 [Unit]
-Description=OpenVPN service for %I
+Description=OpenVPN Service
 After=syslog.target network-online.target
 Wants=network-online.target
 Documentation=man:openvpn(8)
@@ -10,8 +10,8 @@ Documentation=https://community.openvpn.net/openvpn/wiki/HOWTO
 Type=notify
 PrivateTmp=true
 WorkingDirectory=/etc/openvpn/server
-ExecStart=/usr/sbin/openvpn --status /etc/openvpn/status-openvpn.log --status-version 2 --suppress-timestamps --config /etc/openvpn/openvpn.c
-CapabilityBoundingSet=CAP_IPC_LOCK CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW CAP_SETGID CAP_SETUID CAP_SYS_CHROOT CAP_DAC_OVERRIDE CAP_AUDIT_W
+ExecStart=/usr/sbin/openvpn --status /etc/openvpn/status-openvpn.log --status-version 2 --suppress-timestamps --config /etc/openvpn/openvpn.conf --management 127.0.0.1 1195
+CapabilityBoundingSet=CAP_IPC_LOCK CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW CAP_SETGID CAP_SETUID CAP_SYS_CHROOT CAP_DAC_OVERRIDE CAP_AUDIT_WRITE
 LimitNPROC=10
 DeviceAllow=/dev/null rw
 DeviceAllow=/dev/net/tun rw

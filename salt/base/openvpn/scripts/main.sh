@@ -51,6 +51,7 @@ gen_dh() {
 
 copy() {
     cp certs/ca.pem ../files/ca.crt
+    cp certs/ca.pem ../openvpn_client_config/ca.crt
     # cp certs/ca-key.pem ../files/ca.key
     cp certs/openvpn.pem ../files/openvpn.crt
     cp certs/openvpn-key.pem ../files/openvpn.key
