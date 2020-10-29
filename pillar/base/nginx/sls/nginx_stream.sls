@@ -14,6 +14,10 @@ nginx_extra_config_enable: False
 nginx_extra_enable_configs:
   - "all"
 
+nginx_other_config_enable: True
+nginx_other_enable_configs:
+  - "all"
+
 nginx_stream_enable: True
 nginx_stream_enable_configs:
   - "all"

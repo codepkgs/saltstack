@@ -58,6 +58,20 @@
     {% set nginx_extra_enable_configs = pillar['nginx_extra_enable_configs'] %}
 {% endif %}
 
+{# 是否要复制的其他配置文件 #}
+{% if pillar['nginx_other_config_enable'] is defined and pillar['nginx_other_config_enable'] %}
+    {% set nginx_other_config_enable = True %}
+{% else %}
+    {% set nginx_other_config_enable = False %}
+{% endif %}
+
+{# 配置要复制的其他的配置文件到 /etc/nginx/others 目录下 #}
+{% if pillar['nginx_other_enable_configs'] is defined and pillar['nginx_other_enable_configs'][0] | lower == 'all' %}
+    {% set nginx_other_enable_configs = ['all'] %}
+{% else %}
+    {% set nginx_other_enable_configs = pillar['nginx_other_enable_configs'] %}
+{% endif %}
+
 {# 是否启用nginx stream #}
 {% if pillar['nginx_stream_enable'] is defined and pillar['nginx_stream_enable'] %}
     {% set nginx_stream_enable = True %}
@@ -180,6 +194,25 @@ nginx_extra_config:
       - file: nginx_log_dir
 {% endif %}
 
+{% if nginx_other_config_enable %}
+nginx_other_config:
+  file.recurse:
+    - name: /etc/nginx/others
+    - source: salt://nginx/files/others
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 644
+    - clean: True
+    {% if nginx_other_enable_configs[0] | lower != 'all' %}
+    - include_pat: {{ nginx_other_enable_configs }}
+    {% endif %}
+    - require:
+      - pkg: nginx_packages
+      - user: nginx_runtime_user
+      - file: nginx_log_dir
+{% endif %}
+
 nginx_service:
   service.running:
     - name: nginx
@@ -188,6 +221,9 @@ nginx_service:
       - file: nginx_config
       {% if nginx_extra_config_enable %}
       - file: nginx_extra_config
+      {% endif %}
+      {% if nginx_other_config_enable %}
+      - file: nginx_other_config
       {% endif %}
       {% if nginx_stream_enable %}
       - file: nginx_stream_config

@@ -27,6 +27,14 @@ nginx_extra_config_enable: True
 nginx_extra_enable_configs:
   - "all"
 
+{# 是否要复制其他的配置到 /etc/nginx/ 目录下 #}
+nginx_other_config_enable: True
+
+{# 要复制的其他的配置，支持通配。如果第一个元素为 "all"，则表示启用所有配置 #}
+{# 如果没有定义该变量，则表示启用所有配置(只会启用以.conf结尾的配置) #}
+nginx_other_enable_configs:
+  - "all"
+
 {# 是否启用nginx stream 功能 #}
 nginx_stream_enable: True
 
