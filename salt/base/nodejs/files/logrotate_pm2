@@ -1,0 +1,13 @@
+/home/www/.pm2/pm2.log /home/www/.pm2/logs/*.log {
+     rotate 5
+     daily
+     su www www
+     dateext
+     dateformat -%Y-%m-%d
+     missingok
+     notifempty
+     compress
+     delaycompress
+     copytruncate
+     create 0640 www www
+}
