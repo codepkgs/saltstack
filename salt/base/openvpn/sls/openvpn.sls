@@ -52,8 +52,6 @@ openvpn_config:
     - mode: 644
     - require:
       - file: openvpn_files_*
-    - watch:
-      - file: openvpn_files_*
 
 openvpn_service_other_config_absent:
   file.absent:
@@ -69,14 +67,14 @@ openvpn_service_config:
     - mode: 644
     - require:
       - file: openvpn_config
-    - watch:
-      - file: openvpn_config
 
 openvpn_service:
   service.running:
     - name: openvpn-server
     - enable: True
     - require:
+      - file: openvpn_config
       - file: openvpn_service_config
     - watch:
+      - file: openvpn_config
       - file: openvpn_service_config
