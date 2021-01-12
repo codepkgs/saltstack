@@ -21,10 +21,6 @@ salt-minion:
 {% endif %}
 
 {% if grains['os_family'].lower() == 'redhat' and grains['osmajorrelease'] == 7 %}
-chronyd:
-  service.dead:
-    - enable: False
-
 firwalld:
   service.dead:
     - enable: False
