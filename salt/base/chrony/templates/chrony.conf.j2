@@ -7,7 +7,7 @@
 {% if pillar['chrony_acls'] is defined and pillar['chrony_acls'] | length > 0 %}
     {% set chrony_acls = pillar['chrony_acls'] %}
 {% else %}
-    {% set chrony_acls = ['ntp.aliyun.com'] %}
+    {% set chrony_acls = [] %}
 {% endif %}
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
@@ -34,7 +34,7 @@ rtcsync
 # the system clock.
 #minsources 2
 
-{%- if chrony_acls %}
+{% if chrony_acls %}
 {% for acl in chrony_acls %}
 {{ acl }}
 {% endfor %}
