@@ -4,4 +4,4 @@ base:
     - resolv
     {# - schedule #}
   "vm03.fdisk.cc":
-    - gitlab/sls/gitlab2
+    - gitlab
