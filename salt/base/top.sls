@@ -5,6 +5,3 @@ base:
     - chrony
   "L@vm03.fdisk.cc":
     - gitlab
-prod:
-  "*":
-    - resolv
