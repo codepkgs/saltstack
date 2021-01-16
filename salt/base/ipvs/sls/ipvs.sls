@@ -53,4 +53,4 @@ ipvs_rules_service:
     - name: ipvsadm
     - enable: True
     - require:
-      file: ipvs_rules_file
+      - file: ipvs_rules_file
