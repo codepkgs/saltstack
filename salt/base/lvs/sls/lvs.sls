@@ -1,4 +1,4 @@
-ipvs_pkgs:
+lvs_pkgs:
   pkg.installed:
     - pkgs:
       - ipvsadm
@@ -7,7 +7,7 @@ ipvs_pkgs:
       - libnetfilter_conntrack
       - libseccomp
 
-ipvs_modules:
+lvs_modules:
   kmod.present:
     - mods:
       - ip_vs
@@ -20,7 +20,7 @@ ipvs_modules:
       - nf_conntrack
       - br_netfilter
 
-ipvs_module_config:
+lvs_module_config:
   file.managed:
     - name: /etc/modules-load.d/ipvs.conf
     - source: salt://ipvs/files/ipvs.conf
@@ -28,7 +28,7 @@ ipvs_module_config:
     - group: root
     - mode: 0644
 
-ipvs_hashtable_config:
+lvs_hashtable_config:
   file.managed:
     - name: /etc/modprobe.d/ipvs.conf
     - source: salt://ipvs/templates/ipvs.conf.j2
@@ -37,25 +37,25 @@ ipvs_hashtable_config:
     - group: root
     - mode: 0644
 
-ipvs_modules_service:
+lvs_modules_service:
   service.running:
     - name: systemd-modules-load
     - enable: True
     - watch:
-      - file: ipvs_module_config
+      - file: lvs_module_config
 
-ipvs_rules_file:
+lvs_rules_file:
   file.touch:
     - name: /etc/sysconfig/ipvsadm
 
-ipvs_rules_service:
+lvs_rules_service:
   service.running:
     - name: ipvsadm
     - enable: True
     - require:
-      - file: ipvs_rules_file
+      - file: lvs_rules_file
 
-ipvs_ip_forward:
+lvs_ip_forward:
   sysctl.present:
-    - name: net.ipv4.ip_formward
+    - name: net.ipv4.ip_forward
     - value: 1
