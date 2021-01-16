@@ -47,6 +47,8 @@ lvs_modules_service:
 lvs_rules_file:
   file.touch:
     - name: /etc/sysconfig/ipvsadm
+    - unless:
+      - test -f /etc/sysconfig/ipvsadm
 
 lvs_rules_service:
   service.running:
