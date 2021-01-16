@@ -4,7 +4,7 @@ ipvs_pkgs:
       - ipvsadm
       - ipset
       - sysstat
-      - conntrack
+      - libnetfilter_conntrack
       - libseccomp
 
 ipvs_modules:
