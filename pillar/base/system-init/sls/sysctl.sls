@@ -23,3 +23,9 @@ sysctl_configs:
     value: 1
   - key: net.ipv4.tcp_keepalive_time
     value: 30
+  - key: net.ipv4.conf.default.arp_announce
+    value: 2
+  - key: net.ipv4.conf.all.arp_announce
+    value: 2
+  - key: net.ipv4.conf.lo.arp_announce
+    value: 2
