@@ -44,7 +44,13 @@ ipvs_modules_service:
     - watch:
       - file: ipvs_module_config
 
-ipvs_rules:
+ipvs_rules_file:
+  file.touch:
+    - name: /etc/sysconfig/ipvsadm
+
+ipvs_rules_service:
   service.running:
     - name: ipvsadm
     - enable: True
+    - require:
+      file: ipvs_rules_file
