@@ -23,7 +23,7 @@ lvs_modules:
 lvs_module_config:
   file.managed:
     - name: /etc/modules-load.d/ipvs.conf
-    - source: salt://ipvs/files/ipvs.conf
+    - source: salt://lvs/files/ipvs.conf
     - user: root
     - group: root
     - mode: 0644
@@ -31,7 +31,7 @@ lvs_module_config:
 lvs_hashtable_config:
   file.managed:
     - name: /etc/modprobe.d/ipvs.conf
-    - source: salt://ipvs/templates/ipvs.conf.j2
+    - source: salt://lvs/templates/ipvs.conf.j2
     - template: jinja
     - user: root
     - group: root
