@@ -43,3 +43,8 @@ ipvs_modules_service:
     - enable: True
     - watch:
       - file: ipvs_module_config
+
+ipvs_rules:
+  service.running:
+    - name: ipvsadm
+    - enable: True
