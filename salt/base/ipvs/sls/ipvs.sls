@@ -54,3 +54,8 @@ ipvs_rules_service:
     - enable: True
     - require:
       - file: ipvs_rules_file
+
+ipvs_ip_forward:
+  sysctl.present:
+    - name: net.ipv4.ip_formward
+    - value: 1
