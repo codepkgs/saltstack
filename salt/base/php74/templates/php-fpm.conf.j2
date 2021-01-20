@@ -1,0 +1,244 @@
+{% raw %};;;;;;;;;;;;;;;;;;;;;{% endraw %}
+
+{% raw %}; FPM Configuration ;{% endraw %}
+
+{% raw %};;;;;;;;;;;;;;;;;;;;;{% endraw %}
+
+
+{% raw %}; All relative paths in this configuration file are relative to PHP's install{% endraw %}
+
+{% raw %}; prefix.{% endraw %}
+
+
+{% raw %}; Include one or more files. If glob(3) exists, it is used to include a bunch of{% endraw %}
+
+{% raw %}; files from a glob(3) pattern. This directive can be used everywhere in the{% endraw %}
+
+{% raw %}; file.{% endraw %}
+
+include=/etc/opt/remi/php74/php-fpm.d/*.conf
+
+{% raw %};;;;;;;;;;;;;;;;;;{% endraw %}
+
+{% raw %}; Global Options ;{% endraw %}
+
+{% raw %};;;;;;;;;;;;;;;;;;{% endraw %}
+
+
+[global]
+{% raw %}; Pid file{% endraw %}
+
+{% raw %}; Default Value: none{% endraw %}
+
+pid = /var/opt/remi/php74/run/php-fpm/php-fpm.pid
+
+{% raw %}; Error log file{% endraw %}
+
+{% raw %}; If it's set to "syslog", log is sent to syslogd instead of being written{% endraw %}
+
+{% raw %}; in a local file.{% endraw %}
+
+{% raw %}; Default Value: /var/opt/remi/php74/log/php-fpm.log{% endraw %}
+
+error_log = /data/logs/php-fpm/error.log
+
+{% raw %}; syslog_facility is used to specify what type of program is logging the{% endraw %}
+
+{% raw %}; message. This lets syslogd specify that messages from different facilities{% endraw %}
+
+{% raw %}; will be handled differently.{% endraw %}
+
+{% raw %}; See syslog(3) for possible values (ex daemon equiv LOG_DAEMON){% endraw %}
+
+{% raw %}; Default Value: daemon{% endraw %}
+
+{% raw %};syslog.facility = daemon{% endraw %}
+
+
+{% raw %}; syslog_ident is prepended to every message. If you have multiple FPM{% endraw %}
+
+{% raw %}; instances running on the same server, you can change the default value{% endraw %}
+
+{% raw %}; which must suit common needs.{% endraw %}
+
+{% raw %}; Default Value: php-fpm{% endraw %}
+
+{% raw %};syslog.ident = php-fpm{% endraw %}
+
+
+{% raw %}; Log level{% endraw %}
+
+{% raw %}; Possible Values: alert, error, warning, notice, debug{% endraw %}
+
+{% raw %}; Default Value: notice{% endraw %}
+
+{% raw %};log_level = notice{% endraw %}
+
+
+{% raw %}; Log limit on number of characters in the single line (log entry). If the{% endraw %}
+
+{% raw %}; line is over the limit, it is wrapped on multiple lines. The limit is for{% endraw %}
+
+{% raw %}; all logged characters including message prefix and suffix if present. However{% endraw %}
+
+{% raw %}; the new line character does not count into it as it is present only when{% endraw %}
+
+{% raw %}; logging to a file descriptor. It means the new line character is not present{% endraw %}
+
+{% raw %}; when logging to syslog.{% endraw %}
+
+{% raw %}; Default Value: 1024{% endraw %}
+
+{% raw %};log_limit = 4096{% endraw %}
+
+
+{% raw %}; Log buffering specifies if the log line is buffered which means that the{% endraw %}
+
+{% raw %}; line is written in a single write operation. If the value is false, then the{% endraw %}
+
+{% raw %}; data is written directly into the file descriptor. It is an experimental{% endraw %}
+
+{% raw %}; option that can potentionaly improve logging performance and memory usage{% endraw %}
+
+{% raw %}; for some heavy logging scenarios. This option is ignored if logging to syslog{% endraw %}
+
+{% raw %}; as it has to be always buffered.{% endraw %}
+
+{% raw %}; Default value: yes{% endraw %}
+
+{% raw %};log_buffering = no{% endraw %}
+
+
+{% raw %}; If this number of child processes exit with SIGSEGV or SIGBUS within the time{% endraw %}
+
+{% raw %}; interval set by emergency_restart_interval then FPM will restart. A value{% endraw %}
+
+{% raw %}; of '0' means 'Off'.{% endraw %}
+
+{% raw %}; Default Value: 0{% endraw %}
+
+{% raw %};emergency_restart_threshold = 0{% endraw %}
+
+
+{% raw %}; Interval of time used by emergency_restart_interval to determine when{% endraw %}
+
+{% raw %}; a graceful restart will be initiated.  This can be useful to work around{% endraw %}
+
+{% raw %}; accidental corruptions in an accelerator's shared memory.{% endraw %}
+
+{% raw %}; Available Units: s(econds), m(inutes), h(ours), or d(ays){% endraw %}
+
+{% raw %}; Default Unit: seconds{% endraw %}
+
+{% raw %}; Default Value: 0{% endraw %}
+
+{% raw %};emergency_restart_interval = 0{% endraw %}
+
+
+{% raw %}; Time limit for child processes to wait for a reaction on signals from master.{% endraw %}
+
+{% raw %}; Available units: s(econds), m(inutes), h(ours), or d(ays){% endraw %}
+
+{% raw %}; Default Unit: seconds{% endraw %}
+
+{% raw %}; Default Value: 0{% endraw %}
+
+{% raw %};process_control_timeout = 0{% endraw %}
+
+
+{% raw %}; The maximum number of processes FPM will fork. This has been designed to control{% endraw %}
+
+{% raw %}; the global number of processes when using dynamic PM within a lot of pools.{% endraw %}
+
+{% raw %}; Use it with caution.{% endraw %}
+
+{% raw %}; Note: A value of 0 indicates no limit{% endraw %}
+
+{% raw %}; Default Value: 0{% endraw %}
+
+{% raw %};process.max = 128{% endraw %}
+
+
+{% raw %}; Specify the nice(2) priority to apply to the master process (only if set){% endraw %}
+
+{% raw %}; The value can vary from -19 (highest priority) to 20 (lowest priority){% endraw %}
+
+{% raw %}; Note: - It will only work if the FPM master process is launched as root{% endraw %}
+
+{% raw %};       - The pool process will inherit the master process priority{% endraw %}
+
+{% raw %};         unless specified otherwise{% endraw %}
+
+{% raw %}; Default Value: no set{% endraw %}
+
+{% raw %};process.priority = -19{% endraw %}
+
+
+{% raw %}; Send FPM to background. Set to 'no' to keep FPM in foreground for debugging.{% endraw %}
+
+{% raw %}; Default Value: yes{% endraw %}
+
+daemonize = yes
+
+{% raw %}; Set open file descriptor rlimit for the master process.{% endraw %}
+
+{% raw %}; Default Value: system defined value{% endraw %}
+
+{% raw %};rlimit_files = 1024{% endraw %}
+
+
+{% raw %}; Set max core size rlimit for the master process.{% endraw %}
+
+{% raw %}; Possible Values: 'unlimited' or an integer greater or equal to 0{% endraw %}
+
+{% raw %}; Default Value: system defined value{% endraw %}
+
+{% raw %};rlimit_core = 0{% endraw %}
+
+
+{% raw %}; Specify the event mechanism FPM will use. The following is available:{% endraw %}
+
+{% raw %}; - select     (any POSIX os){% endraw %}
+
+{% raw %}; - poll       (any POSIX os){% endraw %}
+
+{% raw %}; - epoll      (linux >= 2.5.44){% endraw %}
+
+{% raw %}; Default Value: not set (auto detection){% endraw %}
+
+{% raw %};events.mechanism = epoll{% endraw %}
+
+
+{% raw %}; When FPM is built with systemd integration, specify the interval,{% endraw %}
+
+{% raw %}; in seconds, between health report notification to systemd.{% endraw %}
+
+{% raw %}; Set to 0 to disable.{% endraw %}
+
+{% raw %}; Available Units: s(econds), m(inutes), h(ours){% endraw %}
+
+{% raw %}; Default Unit: seconds{% endraw %}
+
+{% raw %}; Default value: 10{% endraw %}
+
+{% raw %};systemd_interval = 10{% endraw %}
+
+
+{% raw %};;;;;;;;;;;;;;;;;;;;{% endraw %}
+
+{% raw %}; Pool Definitions ;{% endraw %}
+
+{% raw %};;;;;;;;;;;;;;;;;;;;{% endraw %}
+
+
+{% raw %}; Multiple pools of child processes may be started with different listening{% endraw %}
+
+{% raw %}; ports and different management options.  The name of the pool will be{% endraw %}
+
+{% raw %}; used in logs and stats. There is no limitation on the number of pools which{% endraw %}
+
+{% raw %}; FPM can handle. Your system will tell you anyway :){% endraw %}
+
+
+{% raw %}; See /etc/opt/remi/php74/php-fpm.d/*.conf{% endraw %}
+

@@ -1,0 +1,2 @@
+include:
+  - .sls/php74
