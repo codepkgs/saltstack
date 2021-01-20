@@ -22,7 +22,11 @@ sysctl_configs:
   - key: net.ipv4.tcp_fin_timeout
     value: 1
   - key: net.ipv4.tcp_keepalive_time
+    value: 600
+  - key: net.ipv4.tcp_keepalive_intvl
     value: 30
+  - key: net.ipv4.tcp_keepalive_probes
+    value: 3
   - key: net.ipv4.conf.default.arp_announce
     value: 2
   - key: net.ipv4.conf.all.arp_announce
