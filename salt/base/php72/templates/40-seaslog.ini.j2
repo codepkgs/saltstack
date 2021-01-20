@@ -1,0 +1,69 @@
+{% raw %}; Enable seaslog extension module{% endraw %}
+
+extension=seaslog.so
+
+{% raw %}; Configuration{% endraw %}
+
+seaslog.default_basepath = '/data/logs/php-seaslog'
+{% raw %};seaslog.default_basepath = '/var/log/www'{% endraw %}
+
+{% raw %};seaslog.default_logger = 'default'{% endraw %}
+
+{% raw %};seaslog.default_datetime_format = 'Y-m-d H:i:s'{% endraw %}
+
+{% raw %};seaslog.default_template = '%T | %L | %PATCH | %Q | %t | %M'{% endraw %}
+
+seaslog.default_template = '%M'
+{% raw %};seaslog.disting_folder = 1{% endraw %}
+
+{% raw %};seaslog.disting_type = 0{% endraw %}
+
+{% raw %};seaslog.disting_by_hour = 0{% endraw %}
+
+{% raw %};seaslog.use_buffer = 0{% endraw %}
+
+{% raw %};seaslog.buffer_size = 0{% endraw %}
+
+{% raw %};seaslog.buffer_disabled_in_cli => 0{% endraw %}
+
+{% raw %};seaslog.trace_notice = 0{% endraw %}
+
+{% raw %};seaslog.trace_warning = 0{% endraw %}
+
+{% raw %};seaslog.trace_error = 1{% endraw %}
+
+{% raw %};seaslog.trace_exception = 0{% endraw %}
+
+{% raw %};seaslog.level = 0{% endraw %}
+
+{% raw %};seaslog.recall_depth = 0{% endraw %}
+
+{% raw %};seaslog.appender = 1{% endraw %}
+
+{% raw %};seaslog.appender_retry = 0{% endraw %}
+
+{% raw %};seaslog.remote_host = '127.0.0.1'{% endraw %}
+
+{% raw %};seaslog.remote_port = 514{% endraw %}
+
+{% raw %};seaslog.remote_timeout => 1 => 1{% endraw %}
+
+{% raw %};seaslog.trim_wrap = 0{% endraw %}
+
+{% raw %};seaslog.throw_exception = 1{% endraw %}
+
+{% raw %};seaslog.ignore_warning = 1{% endraw %}
+
+{% raw %};seaslog.trace_performance = 0{% endraw %}
+
+{% raw %};seaslog.trace_performance_sample_rate = 10{% endraw %}
+
+{% raw %};seaslog.trace_performance_start_depth = 1{% endraw %}
+
+{% raw %};seaslog.trace_performance_max_depth = 5{% endraw %}
+
+{% raw %};seaslog.trace_performance_max_functions_per_depth = 5{% endraw %}
+
+{% raw %};seaslog.trace_performance_min_wall_time = 1000{% endraw %}
+
+{% raw %};seaslog.trace_performance_min_function_wall_time = 10{% endraw %}
