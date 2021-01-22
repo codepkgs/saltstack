@@ -38,7 +38,7 @@ prometheus_data_dir:
 {# prometheus_repo:
   file.managed:
     - name: /etc/yum.repos.d/prometheus.repo
-    - source: salt://prometheus/files/prometheus.repo
+    - source: salt://prometheus/prometheus-server/files/prometheus.repo
     - user: root
     - group: root
     - mode: 0644
@@ -105,7 +105,7 @@ prometheus_config_file:
 prometheus_service_file:
   file.managed:
     - name: /usr/lib/systemd/system/prometheus.service
-    - source: salt://prometheus/templates/prometheus.service.j2
+    - source: salt://prometheus/prometheus-server/templates/prometheus.service.j2
     - user: root
     - group: root
     - mode: 644

@@ -1,0 +1,5 @@
+[prometheus]
+name=prometheus
+baseurl=https://packagecloud.io/prometheus-rpm/release/el/$releasever/$basearch
+enabled=1
+gpgcheck=0
