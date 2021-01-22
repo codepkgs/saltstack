@@ -35,6 +35,19 @@ prometheus_data_dir:
     - require:
       - user: prometheus_user
 
+{# prometheus_repo:
+  file.managed:
+    - name: /etc/yum.repos.d/prometheus.repo
+    - source: salt://prometheus/files/prometheus.repo
+    - user: root
+    - group: root
+    - mode: 0644
+
+prometheus_pkgs:
+  pkg.installed:
+    - pkgs:
+      - prometheus2 #}
+
 prometheus_download:
   archive.extracted:
     - name: /tmp/
