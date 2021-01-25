@@ -101,6 +101,7 @@ prometheus_config_file:
     - user: {{ prometheus_user }}
     - group: {{ prometheus_user }}
     - mode: 644
+    - unless: test -f /etc/prometheus/prometheus.yml
 
 prometheus_service_file:
   file.managed:
